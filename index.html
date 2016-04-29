@@ -1,0 +1,44 @@
+    <!DOCTYPE html>
+
+
+    <html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+<script src="http://dimplejs.org/dist/dimple.v1.1.1.min.js"></script>
+
+    <script type="text/javascript">
+
+
+function draw(data) {
+
+  "use strict";
+  var margin = 75,
+    width = 15000 - margin,
+    height = 600 - margin;
+
+  var svg = d3.select("body")
+    .append("svg")
+    .attr("width", width + margin)
+    .attr("height", height + margin)
+    .append('g')
+    .attr('class', 'chart');
+
+
+  var chart = new dimple.chart(svg, data);
+  chart.setBounds(100, 100, 500, 300);
+
+  var x = chart.addCategoryAxis("x", ' "loc" ');
+  var y = chart.addMeasureAxis("y", ' "title" ');
+
+  var lines = chart.addSeries(["project"], dimple.bar, [x, y]);
+
+
+  chart.draw();
+
+};
+
+d3.csv('https://raw.githubusercontent.com/s-matthew-english/bookish-adventure/master/data/Germany.csv', draw)
+
+    </script>
+
+
+    </html>
