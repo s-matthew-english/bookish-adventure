@@ -1,0 +1,46 @@
+    <div id="chartContainer">
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://dimplejs.org/dist/dimple.v1.1.1.min.js"></script>
+    </div>
+
+    <script>
+
+    console.log(data);
+
+    var svg = dimple.newSvg("#chartContainer", 1000, 1000);
+    var data = [
+              { '"loc"': '"Hamburg, Deutschland"', '"title"': "CNC-Dreher/in" },
+              { '"loc"': 'M?nchen (Kreis), Bayern', '"title"': "Data Scientist" },
+              { '"loc"': '"D?sseldorf, Nordrhein-Westfalen"', '"title"': "Praktikant m|w" },
+              { '"loc"': '"Rheinland-Pfalz, Deutschland"', '"title"': "Senior Softwareentwickler Logistikdienstleistung(w/m)" },
+              { '"loc"': '"D?sseldorf, Nordrhein-Westfalen"', '"title"': "Projektmanager (m/w) Information Engineering" },
+              { '"loc"': '"Grimma, Leipzig (Kreis)"', '"title"': "Softwareentwickler (m/w)" },
+              { '"loc"': '"Hannover, Region Hannover (Kreis)"', '"title"': "Bauleiter (m/w)" },
+              { '"loc"': '"M?nchen (Kreis), Bayern"', '"title"': "Backend Software Developer (m/f)" },
+              { '"loc"': '"Ratingen, Mettmann (Kreis)"', '"title"': "Ausbildung Industriekaufmann (m/w)" },
+              { '"loc"': '"Bayern, Deutschland"', '"title"': "Dualer Studiengang Bachelor of Arts (Fachrichtung Bank/Vertrieb) Bayern" },
+              { '"loc"': '"Landshut, Landshut (Kreis)"', '"title"': "Spezialist CFK m/w" },
+              { '"loc"': '"Frankfurt am Main, Hessen"', '"title"': "Data Analyst / Consultant analytisches CRM (m/w) f?r unseren Premium Partner EDEKA" },
+              { '"loc"': '"Hamburg, Deutschland"', '"title"': "Produktmanager (m/w) im Bereich Privat Kraft" },
+              { '"loc"': '"Unterf?hring, M?nchen (Kreis)"', '"title"': "Controller / Assistent der Gesch?ftsleitung" },
+              { '"loc"': '"Berlin, Deutschland"', '"title"': "Projektmanager (m/w)" },
+              { '"loc"': 'Royal Leamington Spa', '"title"': "SOFTWARE TEST ENGINEER / QA (m/w)" },
+              { '"loc"': '"Lauf an der Pegnitz, N?rnberger Land (Kreis)"', '"title"': "Bilanzbuchhalter/in" },
+              { '"loc"': '"Buchenb?hl, N?rnberg"', '"title"': "Inhouse Business Intelligence Berater (m/w)" },
+              { '"loc"': '"Berlin, Deutschland"', '"title"': "Praktikant Vertriebscontrolling (m/w) f?r die Dauer von 6 Monaten (Pflichtpraktikum)" }
+            ];
+    var chart = new dimple.chart(svg,data);
+    chart.setBounds(100, 100, 500, 300);
+
+    var x = chart.addCategoryAxis("x", '"loc"');
+    var y = chart.addMeasureAxis("y", '"title"');
+
+    var lines = chart.addSeries(["project"], dimple.bar, [x, y]);
+
+    lines.data = data;
+    lines.lineWeight = 5;
+    lines.lineMarkers = true;
+
+    chart.draw();
+
+    </script>
