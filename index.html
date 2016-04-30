@@ -1,44 +1,60 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 
 
-    <html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+<html>
+<script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://dimplejs.org/dist/dimple.v1.1.1.min.js"></script>
 
-    <script type="text/javascript">
+<script type="text/javascript">
+  function draw(data) {
+
+    "use strict";
+    var margin = 75,
+
+      height = 600 - margin;
+    var datas = [];
+    //data = data.splice(2,110)
+    var width = data.length*5 -margin;
+    if (width < 500)
+      width =600;
+
+    data.forEach(function(d) {
+      var ob = {};
+      for (var key in d) {
+        var k = key.replace(/"/g, "").trim();
+        var v = d[key].replace(/"/g, "").trim();
+        ob[k]=v;
+      }
+      datas.push(ob)
+    })
+    console.log(datas)
+
+    var svg = d3.select("body")
+      .append("svg")
+      .attr("width", width + margin)
+      .attr("height", height + margin)
+      .append('g')
+      .attr('class', 'chart');
 
 
-function draw(data) {
+    var chart = new dimple.chart(svg, datas);
+    chart.setBounds(100, 100, width -margin, 300);
 
-  "use strict";
-  var margin = 75,
-    width = 15000 - margin,
-    height = 600 - margin;
+    var x = chart.addCategoryAxis("x", "loc");
+    var y = chart.addMeasureAxis("y", "title");
 
-  var svg = d3.select("body")
-    .append("svg")
-    .attr("width", width + margin)
-    .attr("height", height + margin)
-    .append('g')
-    .attr('class', 'chart');
+    var lines = chart.addSeries(["project"], dimple.bar, [x, y]);
 
 
-  var chart = new dimple.chart(svg, data);
-  chart.setBounds(100, 100, 500, 300);
+    chart.draw();
 
-  var x = chart.addCategoryAxis("x", ' "loc" ');
-  var y = chart.addMeasureAxis("y", ' "title" ');
+  };
+</script>
 
-  var lines = chart.addSeries(["project"], dimple.bar, [x, y]);
+<body>
+  <script type="text/javascript">
+    d3.csv("https://raw.githubusercontent.com/s-matthew-english/bookish-adventure/master/data/Germany.csv", draw);
+  </script>
+</body>
 
-
-  chart.draw();
-
-};
-
-d3.csv('https://raw.githubusercontent.com/s-matthew-english/bookish-adventure/master/data/Germany.csv', draw)
-
-    </script>
-
-
-    </html>
+</html>
